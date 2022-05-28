@@ -21,10 +21,35 @@ const DogDelete = ({deleteHandler}) => {
     return(
         <form onSubmit={formHandler}>
             <div>
-                <label>Are you sure you want to Delete the dog named {name}?</label>
+                <label>Delete the dog named {name}?</label>
             </div>
-            <button onClick={()=>{setChoose(true)}}>Yes</button>
-            <button>No</button>
+           
+
+            <button
+                onClick={()=>{setChoose(true)}}
+                style={{
+                background: "red",
+                color: "white",
+                padding: "10px",
+                marginRight: "4px",
+                border: "none",
+                cursor: "pointer"
+                }}
+            >
+                Yes
+            </button>
+            <button
+                style={{
+                background: "green",
+                color: "white",
+                padding: "10px",
+                marginLeft: "4px",
+                border: "none",
+                cursor: "pointer"
+                }}
+            >
+                No
+          </button>
         </form> 
     );
 
