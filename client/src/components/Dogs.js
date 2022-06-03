@@ -28,7 +28,7 @@ const Dogs = ({dogs, getDogs}) => {
                         <tbody>
                     {
                         dogs.data.map((dog, i) =>
-                            <DogCard dog={dog} />
+                            <DogCard key={dog.id} dog={dog} />
                         )
                     }
                         </tbody>

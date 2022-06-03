@@ -29,13 +29,10 @@ const ROLES = {
 }
 
 function App() {
-  // const [dogs, setDogs, cats, setCats] = useState([]);
   const [dogs, setDogs] = useState([]);
   const [cats, setCats] = useState([]);
-  // const [url, setUrl, urlCat, setUrlCat] = useState(['/dogs/?limit=3&offset=0','/cats/?limit=3&offset=0'])
   const [url, setUrl] = useState('/dogs/?limit=3&offset=0')
   const [urlCat, setUrlCat] = useState('/cats/?limit=3&offset=0')
-
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
@@ -51,15 +48,6 @@ function App() {
         navigate('/login', { state: { from: location }, replace: true });
     }
   }
-  useEffect(() => {
-    const controller = new AbortController();
-    getDogs(url, {
-        signal: controller.signal
-    });
-    return () => {
-        controller.abort();
-    }
-}, []);
 
   const getCats = async (urlCat, options = null) => {
     setUrlCat(urlCat);
@@ -72,14 +60,18 @@ function App() {
         navigate('/login', { state: { from: location }, replace: true });
     }
   }
+
   useEffect(() => {
-    const controller = new AbortController();
-    getCats(urlCat, {
+      const controller = new AbortController();
+      getDogs(url, {
+          signal: controller.signal
+      });
+      getCats(urlCat, {
         signal: controller.signal
     });
-    return () => {
-        controller.abort();
-    }
+      return () => {
+          controller.abort();
+      }
   }, []);
 
   const dogAddHandler = async ({name}) => {
@@ -151,7 +143,6 @@ function App() {
           <Route path="/cats/edit/:id" element={<CatEdit updateHandler={catUpdateHandler}/>} />
           <Route path="/cats/delete/:id" element={<CatDelete deleteHandler={catdeleteHandler}/>} />
         </Route>
-
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
           <Route path="admin" element={<Admin />} />
